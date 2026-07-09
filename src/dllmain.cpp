@@ -1,12 +1,12 @@
 #include <Windows.h>
 #include <thread>
 
-constexpr uintptr_t print = 0x46d3410;
+constexpr uintptr_t print_offset = 0x46d3410;
 using console_print_fn = void(__fastcall*)(void*, const char*);
 
 void init() {
 	uintptr_t base = reinterpret_cast<uintptr_t>(GetModuleHandleA(nullptr));
-	auto print = reinterpret_cast<console_print_fn>(base + print);
+	auto print = reinterpret_cast<console_print_fn>(base + print_offset);
 	print(nullptr, "hello world");
 }
 
